@@ -1,8 +1,8 @@
 // main.ts
 
-//import { words } from "./words.ts";
-import { WordStrength, initStrength, setStrength } from "./wordStrength.ts";
+import { WordStrength, setStrength } from "./wordStrength.ts";
 import { wordStrengthMaster } from "./wordStrengthMaster.ts";
+import { Mask, matchGreen, matchGray, matchYellow, maskToCanonical } from "./wordle.ts";
 
 // Prompt function to get user input
 function prompt(question: string): Promise<string> {
@@ -17,50 +17,6 @@ function prompt(question: string): Promise<string> {
       resolve(answer);
     });
   });
-}
-
-// matchGreen returns true if word matches green letters
-function matchGreen(green: string, word: string): boolean {
-  for (var i = 0; i < 5; i++) {
-    var g = green[i];
-    var w = word[i];
-    if (g === "." || g === w) {
-      continue;
-    }
-    return false;
-  }
-  return true;
-}
-
-// matchGrey returns true if any grey character found in word
-function matchGray(gray: string, word: string): boolean {
-  for (const c of gray) {
-    if (c === ".") {
-      continue;
-    }
-    if (word.includes(c)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-// matchYellow returns true if all yellow chars found in word
-function matchYellow(yellow: string, word: string): boolean {
-  let i = -1;
-  for (const c of yellow) {
-    i += 1;
-    if (c === ".") {
-      continue;
-    }
-    if (!word.includes(c)) {
-      return false;
-    }
-    if (c === word[i]) {
-      return false;
-    }
-  }
-  return true;
 }
 
 // const gray0 = "..ons";
@@ -156,44 +112,6 @@ function matchYellow(yellow: string, word: string): boolean {
 // console.log(wordStrengthList[4]);
 // console.log(wordStrengthList[4].length);
 
-interface Mask {
-  gray: string;
-  yellow: string;
-  green: string;
-}
-
-function maskToCanical(word: string, mask: string): Mask {
-  const maskChars = mask.split("");
-  let m: Mask = { gray: ".....", yellow: ".....", green: "....." };
-
-  let i = -1;
-  for (const c of word) {
-    i += 1;
-    var chars: string[];
-
-    switch (maskChars[i]) {
-      case "x":
-        chars = m.gray.split("");
-        chars[i] = c;
-        m.gray = chars.join("");
-        break;
-      case "y":
-        chars = m.yellow.split("");
-        chars[i] = c;
-        m.yellow = chars.join("");
-        break;
-      case "g":
-        chars = m.green.split("");
-        chars[i] = c;
-        m.green = chars.join("");
-        break;
-      default:
-        break;
-    }
-  }
-  return m;
-}
-
 const wordStrengthList: WordStrength[][] = [[]];
 
 // Main function
@@ -201,7 +119,7 @@ async function main() {
   let g = 0; // g for guess (or wordle row)
   while (g < 6) {
     const word_mask = await prompt("Enter word mask (e.g. stare xxxyg): ");
-    const m: Mask = maskToCanical(word_mask.slice(0, 5), word_mask.slice(-5));
+    const m: Mask = maskToCanonical(word_mask.slice(0, 5), word_mask.slice(-5));
     console.log(m);
 
     wordStrengthList[g] = [];
