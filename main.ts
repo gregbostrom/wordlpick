@@ -1,5 +1,3 @@
-// main.ts
-
 import { WordStrength, setStrength } from "./wordStrength.ts";
 import { wordStrengthMaster } from "./wordStrengthMaster.ts";
 import { Mask, matchGreen, matchGray, matchYellow, maskToCanonical } from "./wordle.ts";
@@ -19,102 +17,8 @@ function prompt(question: string): Promise<string> {
   });
 }
 
-// const gray0 = "..ons";
-// const yellow0 = "a....";
-// const green0 = ".e...";
-
-// const wordStrengthList: WordStrength[][] = [[]];
-// wordStrengthList[0] = [];
-
-// for (const ws of wordStrengthMaster) {
-//   if (
-//     matchGray(gray0, ws.word) ||
-//     !matchYellow(yellow0, ws.word) ||
-//     !matchGreen(green0, ws.word)
-//   ) {
-//     continue;
-//   }
-//   ws.strength = 0; // reset
-//   wordStrengthList[0].push(ws);
-// }
-
-// setStrength(wordStrengthList[0], green0 + yellow0);
-
-// console.log(wordStrengthList[0]);
-// console.log(wordStrengthList[0].length);
-
-// const gray1 = "r..l.";
-// const yellow1 = "..a.m";
-// const green1 = ".e...";
-
-// wordStrengthList[1] = [];
-
-// for (const ws of wordStrengthList[0]) {
-//   if (
-//     matchGray(gray1, ws.word) ||
-//     !matchYellow(yellow1, ws.word) ||
-//     !matchGreen(green1, ws.word)
-//   ) {
-//     continue;
-//   }
-//   ws.strength = 0; // reset
-//   wordStrengthList[1].push(ws);
-// }
-
-// setStrength(wordStrengthList[1], green1 + yellow1);
-
-// console.log(wordStrengthList[1]);
-// console.log(wordStrengthList[1].length);
-
-// const gray2 = "..di.";
-// const yellow2 = ".....";
-// const green2 = "me..a";
-
-// wordStrengthList[2] = [];
-
-// for (const ws of wordStrengthList[1]) {
-//   if (
-//     matchGray(gray2, ws.word) ||
-//     !matchYellow(yellow2, ws.word) ||
-//     !matchGreen(green2, ws.word)
-//   ) {
-//     continue;
-//   }
-//   ws.strength = 0; // reset
-//   wordStrengthList[2].push(ws);
-// }
-
-// setStrength(wordStrengthList[2], green2 + yellow2);
-
-// console.log(wordStrengthList[2]);
-// console.log(wordStrengthList[2].length);
-
-// const gray3 = "gh...";
-// const yellow3 = ".....";
-// const green3 = "..ost";
-
-// wordStrengthList[4] = [];
-
-// for (const ws of wordStrengthList[3]) {
-//   if (
-//     matchGray(gray3, ws.word) ||
-//     !matchYellow(yellow3, ws.word) ||
-//     !matchGreen(green3, ws.word)
-//   ) {
-//     continue;
-//   }
-//   ws.strength = 0; // reset
-//   wordStrengthList[4].push(ws);
-// }
-
-// setStrength(wordStrengthList[4], green2 + yellow2);
-
-// console.log(wordStrengthList[4]);
-// console.log(wordStrengthList[4].length);
-
 const wordStrengthList: WordStrength[][] = [[]];
 
-// Main function
 async function main() {
   let g = 0; // g for guess (or wordle row)
   while (g < 6) {
@@ -158,5 +62,4 @@ async function main() {
   }
 }
 
-// Run the main function
 main().catch((error) => console.error(error));
